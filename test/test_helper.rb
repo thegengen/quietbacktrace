@@ -16,6 +16,7 @@ class Test::Unit::TestCase
                    "/Users/dancroak/dev/nationalgazette/vendor/gems/thoughtbot-shoulda-2.0.6/lib/shoulda/context.rb:254:in `test: on a GET to #index.rss should respond with content type of application/rs+xml. '",
                    "/Users/dancroak/dev/nationalgazette/vendor/rails/activesupport/lib/active_support/testing/setup_and_teardown.rb:94:in `__send__'",
                    "/Users/dancroak/dev/nationalgazette/vendor/rails/activesupport/lib/active_support/testing/setup_and_teardown.rb:94:in `run'",
+                   "lib/i_want_this_out.rb",
                    "lib/mongrel", "bin/mongrel",
                    "lib/passenger", "bin/passenger-spawn-server",
                    "lib/rack", "script/server", 

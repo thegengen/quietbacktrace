@@ -1,4 +1,15 @@
 module QuietBacktrace
+
+  # Provides a global cleaner instance that you can use accross your application
+  # This is useful if you're trying to customize quietbacktrace in a Rails app
+  #
+  # Example (in an initializer or environment file):
+  #
+  # QuietBacktrace.cleaner.add_silencer { |line| line.match("/lib/unimportant.rb") }
+  def self.cleaner
+    @cleaner ||= QuietBacktrace::BacktraceCleaner.new 
+  end
+ 
   class BacktraceCleaner
     
     RUBY_NOISE       = %w( ruby Ruby.framework 
@@ -77,8 +88,8 @@ module QuietBacktrace
     def remove_silencers!
       @silencers = []
     end
-    
-    private
+
+   private
     
       def filter(backtrace)
         @filters.each do |f|

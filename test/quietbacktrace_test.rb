@@ -26,6 +26,16 @@ class RailsCleanerTest < Test::Unit::TestCase
       "Rails app line is being quieted: #{default_quiet_backtrace}"
   end
 
+  test "add filters to QuietBacktrace::Cleaner while testing" do
+    unneeded_line = "lib/i_want_this_out.rb"
+    quiet_backtrace_before = cleaner.filter_backtrace(@backtrace.dup)
+    QuietBacktrace.cleaner.add_silencer { |line| line =~ /i_want_this_out/ }
+    quiet_backtrace_after  = cleaner.filter_backtrace(@backtrace.dup)
+
+    assert !quiet_backtrace_before.grep(/i_want_this_out/).empty?, "User's line is being quieted before: #{unneeded_line}"
+    assert quiet_backtrace_after.grep(/i_want_this_out/).empty?, "User's line is not being quieted after: #{unneeded_line}"
+  end
+
   def cleaner
     defined?(MiniTest) ? MiniTest : self
   end

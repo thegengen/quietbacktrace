@@ -11,8 +11,8 @@ module QuietBacktrace
     def filter_backtrace_with_cleaning(backtrace)
       backtrace = filter_backtrace_without_cleaning(backtrace)
       backtrace = backtrace.first.split("\n") if backtrace.size == 1
-      cleaner = QuietBacktrace::BacktraceCleaner.new
-      cleaner.clean(backtrace)
+      QuietBacktrace.cleaner ||= QuietBacktrace::BacktraceCleaner.new
+      QuietBacktrace.cleaner.clean(backtrace)
     end
   end
 end
@@ -23,6 +23,6 @@ end if defined?(Test::Unit::Util)
 
 module MiniTest
   def self.filter_backtrace(backtrace)
-    QuietBacktrace::BacktraceCleaner.new.clean(backtrace)
+    QuietBacktrace.cleaner.clean(backtrace) 
   end
 end if defined?(MiniTest)
